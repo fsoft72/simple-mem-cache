@@ -8,7 +8,7 @@
     "storage"
   ],
   "main": "./index.js",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": "git://github.com/fsoft72/simple-mem-cache.git",
   "scripts": {
     "test": "nodemon test.js"

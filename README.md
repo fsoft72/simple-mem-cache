@@ -5,11 +5,11 @@ By Fabio Rotondo.
 
 ## Installation
 
-    yarn add simple-memory-cache
+    yarn add simple-mem-cache
 
 or
 
-    npm install simple-memory-cache --save
+    npm install simple-mem-cache --save
 
 
 ## Usage
