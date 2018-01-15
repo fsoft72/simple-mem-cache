@@ -132,7 +132,7 @@ class SimpleMemCache
 			res.push ( k );
 		} );
 
-		return JSON.stringify ( res, indent = indent );
+		return JSON.stringify ( res );
 	}
 
 	/**

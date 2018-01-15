@@ -1,4 +1,5 @@
 {
+  "version": "0.1.2",
   "name": "simple-mem-cache",
   "description": "A simple in-memory cache for Node.js",
   "author": "Fabio Rotondo <fabio.rotondo@gmail.com>",
@@ -8,7 +9,6 @@
     "storage"
   ],
   "main": "./index.js",
-  "version": "0.1.1",
   "repository": "git://github.com/fsoft72/simple-mem-cache.git",
   "scripts": {
     "test": "nodemon test.js"
