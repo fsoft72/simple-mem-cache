@@ -11,10 +11,13 @@
   "main": "./index.js",
   "repository": "git://github.com/fsoft72/simple-mem-cache.git",
   "scripts": {
-    "test": "nodemon test.js"
+    "test": "jest --watch"
   },
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "jest": "^22.1.1"
   }
 }

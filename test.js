@@ -1,49 +1,98 @@
 const smc = require ( './index' );
 
-smc.keyManip = ( k ) => k.toLowerCase ();
+test ( 'lowercase keyManip', () => {
+	smc.keyManip = ( k ) => k.toLowerCase ();
+	smc.clear ();
+	smc.add ( "hello", "world" );
 
-/*
-smc.add ( "hello", "world" );
-smc.add ( "temp", { "hello" : 1 }, 100 );
-smc.add ( "longer", "still here", 1000 );
-smc.add ( "boom", "123", 200, ( k, v ) =>
-{
-	console.log ( "KA-BOOOMMM for k: %s - v: %s", k, v );
+	const res = smc.stringify ();
+	expect ( res ).toBe ( '[{"key":"hello","value":"world"}]' );
 } );
 
-setTimeout ( () => {
-	console.log ( "TEMP: ", smc.get ( "temp", "NOT FOUND" ) );
-}, 50 );
+test ( 'uppercase keyManip', () => {
+	smc.keyManip = ( k ) => k.toUpperCase ();
+	smc.clear ();
+	smc.add ( "hello", "world" );
 
-const s = smc.stringify ();
-console.log ( s );
+	const res = smc.stringify ();
 
-setTimeout ( () => {
-	smc.parse ( s );
-
-	console.log ( "PARSE: ", smc.stringify () );
-}, 200 );
-
-setTimeout ( () => {
-	smc.parse ( s );
-
-	console.log ( "PARSE2: ", smc.stringify () );
-}, 1000 );
-*/
-
-
-// now just use the cache
-smc.add ( 'hello', 'world' );
-
-// add an item that expires after 6 seconds
-smc.add ( 'expiring', 'in 6 seconds', 6000 );
-
-// add an item that expiring calls a cback
-smc.add ( 'boom', 'exploding', 3000, ( key, val ) => {
-    console.log ( 'KA-BOOOM for k: %s - v: %s', key, val );
+	expect ( res ).toBe ( '[{"key":"HELLO","value":"world"}]' );
 } );
 
-// Get values
-console.log ( 'Hello: ', smc.get ( 'hello' ) );
-console.log ( 'expiring: ', smc.get ( 'expiring' ) );
-console.log ( 'boom: ', smc.get ( 'boom' ) );
+test ( 'get value', () => {
+	smc.keyManip = ( k ) => k.toLowerCase ();
+	smc.clear ();
+	smc.add ( "hello", "world" );
+	const res = smc.get ( "hello" );
+
+	expect ( res ).toBe ( "world" );
+
+	// world is undefined key
+	expect ( smc.get ( "world" ) ).toBeUndefined ();
+
+	// find key in UPPERCASE (where store is lowercase)
+	expect ( smc.get ( 'HELLO' ) ).toBe ( 'world' );
+} );
+
+test ( 'overwrite value', () => {
+	smc.keyManip = ( k ) => k.toLowerCase ();
+	smc.clear ();
+	smc.add ( "hello", "world" );
+	smc.add ( "hello", "big world" );
+
+	expect ( smc.get ( "hello" ) ).toBe ( "big world" );
+} );
+
+test ( 'default value', () => {
+	smc.keyManip = ( k ) => k.toLowerCase ();
+	smc.clear ();
+
+	expect ( smc.get ( "hello", "default world" ) ).toBe ( "default world" );
+} );
+
+test ( 'stringify / parse', () => {
+	smc.keyManip = ( k ) => k.toLowerCase ();
+	smc.clear ();
+	smc.add ( "hello", "world" );
+
+	const s = smc.stringify ();
+	smc.clear ();
+	smc.parse ( s );
+
+	expect ( smc.stringify () ).toBe ( '[{"key":"hello","value":"world"}]' );
+} );
+
+test ( 'timeout', () => {
+	smc.clear ();
+	smc.add ( "hello", "world", 200 );
+
+	// FIXME: setTimeout() not working
+	setTimeout ( () => {
+		expect ( smc.stringify () ).toBe ( '[]' );
+	}, 300 );
+} );
+
+test ( 'timeout / callback', () => {
+	let v = 'empty';
+	smc.clear ();
+	smc.add ( "hello", "world", 200, () => { v = "full" } );
+
+	// FIXME: setTimeout() not working
+	setTimeout ( () => {
+		expect ( v ).toBe ( "full" );
+	}, 300 );
+} );
+
+test ( 'counters', () => {
+	smc.clear ();
+	expect ( smc.size ).toBe ( 0 );
+
+	smc.add ( "hello", "world" );
+	expect ( smc.size ).toBe ( 1 );
+
+	smc.get ( "hello" );
+	expect ( smc.hits ).toBe ( 1 );
+
+	smc.get ( "hello2" );
+	expect ( smc.misses ).toBe ( 1 );
+} );
