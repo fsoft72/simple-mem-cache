@@ -158,3 +158,9 @@ This is a class read only property that returns the number of cache hits.
 ### misses
 
 This is a class read only property that returns the number of cache misses.
+
+---
+
+## Changelog
+
+0.1.3: Added jest tests
