@@ -1,3 +1,7 @@
 node_modules/
 *.log
 *.lock
+*.tsbuildinfo
+test.d.ts
+test.js.map
+test.js
