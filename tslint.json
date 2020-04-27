@@ -1,0 +1,29 @@
+{  
+	"extends": ["tslint:recommended"],
+	"rules": {    
+		"member-access": true,
+		"indent": false,
+		"one-line": false,
+		"variable-name": {
+			"options": [
+				"ban-keywords",
+				"allow-leading-underscore",
+				"allow-pascal-case"
+			]
+		},
+		"curly": [ false, "as-needed"],
+		"no-console": [ false, "log", "error"],
+		"quotemark": [ false, "single", "jsx-double"],
+		"object-literal-sort-keys": false,
+		"trailing-comma": false,
+		"space-before-function-paren": true,
+		"only-arrow-functions": false,
+		"max-line-length": false,
+		"import-spacing": false,
+		"ordered-imports": false,
+		"no-var-requires": false
+	},
+	"linterOptions": {
+		"exclude": [ "node_modules/**/*.ts" ]
+	}
+}
