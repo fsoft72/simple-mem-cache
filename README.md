@@ -147,20 +147,25 @@ Returns all the keys currently in cache.
 
 ---
 
-### size 
+### size
 
 This is a class read only property that returns the numeber of keys in the cache.
 
-### hits 
+### hits
 
 This is a class read only property that returns the number of cache hits.
 
 ### misses
 
-This is a class read only property that returns the number of cache misses.
+This is a class read only property that returns the number of cache misses for statistic purposes.
 
 ---
 
 ## Changelog
+
+0.2.0: TypeScript Edition
+
+- Rewritten in TypeScript
+- Moved from jest to mocha/chai
 
 0.1.3: Added jest tests
